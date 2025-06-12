@@ -6,7 +6,25 @@ A mini AI tool that explains and tracks Ethereum wallet behavior using OpenAI, W
 
 ## 🧩 What It Does
 
-**Wallet Storyteller** pulls the last 5 transactions from any Ethereum wallet and explains them in plain English using AI. It also uses vector memory to compare each new transaction to past behavior, helping you detect patterns or unusual activity.
+**Wallet Storyteller** pulls the last 5 transactions from any Ethereum wallet and explains them in plain English using AI. It also uses vector memory and behavior tagging to detect patterns, classify actions, and alert on new or unusual wallet behavior.
+
+---
+
+## 🚨 Behavior Shift Alerts
+Wallet Storyteller detects when a wallet performs a new type of action it hasn’t done before, such as:
+
+First time swapping tokens
+
+First smart contract interaction
+
+Breaking a pattern of only sending ETH
+
+When detected, it prints:
+```bash
+🚨 New Behavior Detected: This wallet has never shown behavior 'Token Swap' before!
+```
+This helps spot anomalies, strategy shifts, or alpha-signaling behavior.
+
 
 ---
 
