@@ -1,6 +1,7 @@
 import os
 import requests
 from dotenv import load_dotenv
+from collections import Counter
 from explain import explain_transaction, classify_behavior
 from memory import store_summary, find_similar_summaries
 
@@ -28,10 +29,12 @@ def get_latest_txs(wallet_address, count=5):
 
     return data["result"][:count]
 
-# ✅ Quick test
+# ✅ Run the program
 if __name__ == "__main__":
     wallet = "0x742d35Cc6634C0532925a3b844Bc454e4438f44e"  # Bitfinex example
     txs = get_latest_txs(wallet)
+    tag_counts = Counter()
+
     for tx in txs:
         from_addr = tx["from"]
         to_addr = tx["to"]
@@ -43,6 +46,7 @@ if __name__ == "__main__":
 
         tag = classify_behavior(explanation)
         print(f"🏷️ Behavior Tag: {tag}")
+        tag_counts[tag] += 1
 
         similar = find_similar_summaries(explanation)
         if similar and similar[0]:
@@ -55,3 +59,8 @@ if __name__ == "__main__":
         store_summary(wallet, explanation, tag=tag)
 
         print("-" * 60)
+
+    # ✅ Summary table at the end
+    print("\n🧾 Behavior Breakdown:")
+    for tag, count in tag_counts.items():
+        print(f"- {tag}: {count}")
