@@ -23,3 +23,12 @@ def find_similar_summaries(explanation, n=3):
         n_results=n
     )
     return results["documents"]
+
+def has_seen_tag_before(wallet_address, tag):
+    """Check if this wallet has ever used this tag before"""
+    results = collection.query(
+        query_texts=[tag],
+        where={"tag": tag},
+        n_results=1
+    )
+    return len(results["documents"][0]) > 0 if results["documents"] else False

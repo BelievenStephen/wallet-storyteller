@@ -4,12 +4,13 @@ from dotenv import load_dotenv
 from collections import Counter
 from explain import explain_transaction, classify_behavior
 from memory import store_summary, find_similar_summaries
+from memory import store_summary, find_similar_summaries, has_seen_tag_before
 
 load_dotenv()
 
 ETHERSCAN_API_KEY = os.getenv("ETHERSCAN_API_KEY")
 
-def get_latest_txs(wallet_address, count=5):
+def get_latest_txs(wallet_address, count=3):
     url = "https://api.etherscan.io/api"
     params = {
         "module": "account",
@@ -48,6 +49,10 @@ if __name__ == "__main__":
         print(f"🏷️ Behavior Tag: {tag}")
         tag_counts[tag] += 1
 
+        if not has_seen_tag_before(wallet, tag):
+            print(f"🚨 New Behavior Detected: This wallet has never shown behavior '{tag}' before!")
+
+
         similar = find_similar_summaries(explanation)
         if similar and similar[0]:
             print("🔁 Similar Past Behaviors Found:")
@@ -64,3 +69,4 @@ if __name__ == "__main__":
     print("\n🧾 Behavior Breakdown:")
     for tag, count in tag_counts.items():
         print(f"- {tag}: {count}")
+    
