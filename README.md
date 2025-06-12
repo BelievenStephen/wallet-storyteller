@@ -22,6 +22,7 @@ This transaction sent 50,000 ETH from one wallet to another with no input data.
 🔁 Similar Past Behaviors:
 – This transaction sent 50,000 ETH...
 – This transaction sent 0 ETH with contract input...
+```
 
 ------------------------------------------------------------
 ## 🧠 Stack
@@ -41,22 +42,26 @@ This transaction sent 50,000 ETH from one wallet to another with no input data.
 ```bash
 git clone https://github.com/BelievenStephen/wallet-storyteller.git
 cd wallet-storyteller
+```
 
 ### 2. Install dependencies:
 
 ```bash
 pip install -r requirements.txt
+```
 
 ### 3. Add your .env file:
 
 ```bash
 ETHERSCAN_API_KEY=your_key_here
 OPENAI_API_KEY=your_key_here
+```
 
 ### 4. Run it:
 
 ```bash
 python3 wallet.py
+```
 
 ---
 
