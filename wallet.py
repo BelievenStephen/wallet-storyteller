@@ -1,7 +1,7 @@
 import os
 import requests
 from dotenv import load_dotenv
-from explain import explain_transaction
+from explain import explain_transaction, classify_behavior
 from memory import store_summary, find_similar_summaries
 
 load_dotenv()
@@ -41,7 +41,9 @@ if __name__ == "__main__":
         explanation = explain_transaction(tx)
         print(f"\n🧠 AI Explanation:\n{explanation}")
 
-        # ✅ These lines must be inside the for-loop
+        tag = classify_behavior(explanation)
+        print(f"🏷️ Behavior Tag: {tag}")
+
         similar = find_similar_summaries(explanation)
         if similar and similar[0]:
             print("🔁 Similar Past Behaviors Found:")
@@ -50,12 +52,6 @@ if __name__ == "__main__":
         else:
             print("📂 No similar behavior found.")
 
-        store_summary(wallet, explanation)
+        store_summary(wallet, explanation, tag=tag)
 
         print("-" * 60)
-
-
-
-
-
-
